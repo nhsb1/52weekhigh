@@ -10,9 +10,9 @@ url = 'http://www.barchart.com/stocks/high.php?_dtp1=0'
 def getSoup():
 	global url, target
 	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'lxml')
+	soup = BeautifulSoup(page, 'html.parser')
 	target = soup.find("table", {"class": "datatable js"}) #good start
-	target = soup.find_all('tbody') #tbody puts everything in one list[]
+	target = soup.find_all('tr') #tbody puts everything in one list[]
 	#count = 0
 	# for item in target:
 	# 	print str(count) + "alpha", item
