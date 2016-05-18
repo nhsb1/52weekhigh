@@ -13,44 +13,50 @@ def getSoup():
 	page = urllib2.urlopen(url)
 	soup = BeautifulSoup(page, 'html.parser')
 	target = soup.find_all('tr') #gets all stock, e.g. line '110alpha', but not prices or change
+	return target
+
+def getTickers(mysoup):
+	#tickerdirty = []
+	tickers = []
+	#print mysoup
+	for item in mysoup:
+		tickers=[]
+		tickerdirty = str(item)
+		#print tickerdirty
+		tickerdirty = re.findall(r'(quotes/stocks/\w+)', tickerdirty) #finds all of the stocks in the list.
+		tickerdirty = str(tickerdirty)
+		#print tickerdirty
+		before, sep, tickerclean = tickerdirty.rpartition("/") #http://stackoverflow.com/questions/7660847/python-split-string-after-a-character
+		tickerclean
+		tickerclean = str(tickerclean)
+		tickerclean = tickerclean.replace("]", "")
+		tickerclean = tickerclean.replace("[", "")
+		tickerclean = tickerclean.replace("'", "")
+		
+		if tickerclean:
+			print tickerclean
+			tickers.append(tickerclean)
+		#print tickers
+	#if len(tickerclean) >= 1: #if there's stuff in the list 'stuff2' append it to tickers
+	#	tickers.append(tickerclean)
+	#if tickerclean:
+	#	print tickers
+	return tickers
 
 
-tickers = []
+
 
 count = 0 
 mysoup = getSoup()
-for item in target:
-	tickerdirty = str(item)
-	tickerdirty = re.findall(r'(quotes/stocks/\w+)', tickerdirty) #finds all of the stocks in the list.
-	tickerdirty = str(tickerdirty)
-	before, sep, tickerclean = tickerdirty.rpartition("/") #http://stackoverflow.com/questions/7660847/python-split-string-after-a-character
-	tickerclean = str(tickerclean)
-	tickerclean = tickerclean.replace("]", "")
-	tickerclean = tickerclean.replace("[", "")
-	tickerclean = tickerclean.replace("'", "")
-	#if len(tickerclean) >= 1: #if there's stuff in the list 'stuff2' append it to tickers
-	#	tickers.append(tickerclean)
-	if tickerclean:
-		tickers.append(tickerclean)
+mytickers = []
 
-#print tickers
-for item in tickers:
+myticker = []
+mytickers = getTickers(mysoup)
+for item in mytickers:
 	print item
 
 
-	
-
 #print tickers
-	#print cleanerstuff
-	#print str(count) + "alpha", item
-
-	#count = count+1
-
-# count2 = 0
-# for item in target2:
-# 	print str(count2) + "beta", item
-# 	count2 = count+1
-#print target
-
-#print mysoup
+# for item in mytickers:
+# 	print item
 
