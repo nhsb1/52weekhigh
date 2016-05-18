@@ -6,6 +6,7 @@ import html5lib
 import re
 
 #url = 'http://www.barchart.com/stocks/high.php?_dtp1=0'
+#urlvolume = 'http://www.barchart.com/stocks/vleaders.php?_dtp1=0'
 url = 'http://www.barchart.com/stocks/low.php?_dtp1=0'
 
 def getSoup():
